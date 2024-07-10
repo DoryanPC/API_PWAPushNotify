@@ -50,23 +50,35 @@ UserController.saveTokenDB = async (req, res) => {
 
     let tokenbrowser = req.body.token;
 
-    let fecha_actual=format(new Date(), 'yyyy-MM-dd');
-     // Crear y guardar un documento
-    const nuevoUsuario = new UserModel({
+    let noti_Existente=await UserModel.findOne({
         endpoint:tokenbrowser.endpoint,
-        expirationTime:tokenbrowser.expirationTime,
-        keys:tokenbrowser.keys,
-        registered:fecha_actual
-    });
-    
-  nuevoUsuario.save()
-    .then((usuarioGuardado) => {
-      console.log('Token guardado');
-      res.send({ data: 'Token guardado exitosamente',status:404 });
-    })
-    .catch((error) => {
-      console.error('Error al guardar el token:', error);
-    });
+        'keys.p256dh':tokenbrowser.keys.p256dh
+    }); 
+
+    if(noti_Existente==null){
+
+      let fecha_actual=format(new Date(), 'yyyy-MM-dd HH:mm:ss');
+
+      const nuevoUsuario = new UserModel({
+          endpoint:tokenbrowser.endpoint,
+          expirationTime:tokenbrowser.expirationTime,
+          keys:tokenbrowser.keys,
+          registered:fecha_actual
+      });
+
+      nuevoUsuario.save()
+      .then((usuarioGuardado) => {
+        console.log('Token guardado');
+        res.send({ data: 'Token guardado exitosamente',status:404 });
+      })
+      .catch((error) => {
+        console.error('Error al guardar el token:', error);
+      });
+
+  }else{
+     res.send({ data:'Token ya registrado',status:404 });
+  }
+  
 }; 
 
 module.exports = UserController;
