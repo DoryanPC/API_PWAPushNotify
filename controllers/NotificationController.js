@@ -21,7 +21,7 @@ NotificationController.createNotification = async (req = null, res = null) => {
     });
     let response = await newNotification.save();
 
-    res.send({response});
+    res.send(response);
 };
 
 
@@ -61,8 +61,8 @@ NotificationController.sendNotification = async (req, res) => {
 
     let UsersRegistered=await UserController.getUsers();
 
-    UsersRegistered.forEach(credential => {
-        
+    UsersRegistered.forEach((credential) => {
+
    /* const pushSubscription = {
         endpoint: 'https://updates.push.services.mozilla.com/wpush/v2/gAAAAABmiAuCpWcA5LN0ZEpq6Ih5BKdz7gBhbcrb8wrsQdsnySggfBKGgI2PrDGAHV-1415vuaKO23cA2eRk4NamVZD7i0P0vKmGStfnFeZGjXkO3AaC6O5AuXjPWPUp2pJDENvk_wWjlZJSn0r7XS8qOsJyRQK2KRlchilBA_KP1-5LOitBYRc',
         keys: {
@@ -70,7 +70,6 @@ NotificationController.sendNotification = async (req, res) => {
             p256dh: 'BCvSlzWFFLtnX_kzWMztM6iE_qRqFe2ysL0zYGROPZmlMCVIuWiduP3EROluzflVFBCgJ-5_MySaL2ocaMlcbqc'
         }
     };*/
-
     const pushSubscription = {
         endpoint:credential.endpoint,
         keys: credential.keys
@@ -80,15 +79,16 @@ NotificationController.sendNotification = async (req, res) => {
         pushSubscription,
         JSON.stringify(payload))
         .then(callback => {
-            console.log('Enviado !!');
-
-            res.send({ data: 'Se envio subscribete!!' })
-
+            console.log("Notificacion enviada a: ",callback.headers.location);
         }).catch(err => {
             console.log('Sin respuesta: ', err);
         })
 
+
+
     });
+
+    res.send({ data: 'Se envio subscribete!!' })
 
 
 }; 
