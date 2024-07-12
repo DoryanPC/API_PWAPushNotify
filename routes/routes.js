@@ -5,6 +5,9 @@ const NotifyController = require('../controllers/NotificationController.js');
 
 const UserController = require('../controllers/UserController.js');
 
+router.get('/',()=>{
+return '<h1>API CORRIENDO</h1>'
+});
 
 router.post('/api/saveNotification',NotifyController.createNotification);
 
