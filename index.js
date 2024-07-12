@@ -9,7 +9,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 //conexion a mongo
-mongoose.connect(config.DBMONGO, {
+mongoose.connect('mongodb+srv://doryan:admin@cluster0.gwc5u9s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true, 
   useUnifiedTopology: true
 }).then(() => {
