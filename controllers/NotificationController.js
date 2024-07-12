@@ -17,8 +17,8 @@ NotificationController.createNotification = async (req = null, res = null) => {
     const newNotification=new NotifyModel({
       title:req.body.titulo,
       body:req.body.texto
-
     });
+    
     let response = await newNotification.save();
 
     res.send(response);
@@ -79,7 +79,7 @@ NotificationController.sendNotification = async (req, res) => {
         pushSubscription,
         JSON.stringify(payload))
         .then(callback => {
-            console.log("Notificacion enviada a: ",callback.headers.location);
+            console.log("Notificacion enviada");
         }).catch(err => {
             console.log('Sin respuesta: ', err);
         })
