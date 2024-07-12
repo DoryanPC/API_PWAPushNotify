@@ -69,6 +69,7 @@ NotificationController.sendNotification = async (req, res) => {
             auth: 'nz8F9fjTAmdpoiZCab5uBw',
             p256dh: 'BCvSlzWFFLtnX_kzWMztM6iE_qRqFe2ysL0zYGROPZmlMCVIuWiduP3EROluzflVFBCgJ-5_MySaL2ocaMlcbqc'
         }
+            
     };*/
     const pushSubscription = {
         endpoint:credential.endpoint,
